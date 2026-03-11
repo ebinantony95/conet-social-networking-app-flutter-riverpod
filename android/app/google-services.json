@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "742898064871",
+    "project_id": "conet-3524c",
+    "storage_bucket": "conet-3524c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742898064871:android:825a2ac96d22dc9f247142",
+        "android_client_info": {
+          "package_name": "com.example.conet_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUk0Po6BJaRJOQwxBL0xZOPT9pVBkgk1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
