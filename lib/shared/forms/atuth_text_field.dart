@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatelessWidget {
+class AuthTextFormField extends StatelessWidget {
+  final TextEditingController controller;
   final String hint;
   final bool obscure;
 
-  const AuthTextField({super.key, required this.hint, this.obscure = false});
+  const AuthTextFormField({
+    super.key,
+    required this.controller,
+    required this.hint,
+    this.obscure = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
       obscureText: obscure,
       decoration: InputDecoration(
         hintText: hint,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }

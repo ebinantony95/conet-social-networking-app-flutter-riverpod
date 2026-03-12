@@ -1,3 +1,4 @@
+import 'package:conet_app/features/authentication/viewmodel/auth_view_model.dart';
 import 'package:conet_app/shared/button/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
@@ -19,8 +20,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   // global form key to identify the state changes in the form
   final _formKey = GlobalKey<FormState>();
 
+  // text editing controllers
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(authViewModelProvider);
+
     // for dark mode switch
     final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
@@ -46,6 +66,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   /// Email Field
                   TextFormField(
+                    controller: emailController,
                     validator: AuthValidators.email,
                     decoration: InputDecoration(hintText: "Email"),
                   ),
@@ -54,6 +75,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   /// Password Field
                   TextFormField(
+                    controller: passwordController,
                     validator: AuthValidators.password,
                     obscureText: true,
                     decoration: InputDecoration(hintText: "Password"),
