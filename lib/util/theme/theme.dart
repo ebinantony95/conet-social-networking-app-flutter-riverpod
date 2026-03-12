@@ -1,3 +1,4 @@
+import 'package:conet_app/util/constant/colors.dart';
 import 'package:conet_app/util/theme/custom_themes/app_navbartheme.dart';
 import 'package:conet_app/util/theme/custom_themes/app_texttheme.dart';
 import 'package:conet_app/util/theme/custom_themes/textfirmfield_thme.dart';
@@ -12,7 +13,7 @@ class AppTheme {
     fontFamily: 'Poppins',
     brightness: Brightness.light,
     primaryColor: Colors.black,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.bright,
     textTheme: MyApptexttheme.lightTextTheme,
 
     inputDecorationTheme: MyTextFormFieldTheme.light,
