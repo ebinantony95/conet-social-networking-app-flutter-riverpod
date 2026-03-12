@@ -1,7 +1,8 @@
 import 'package:conet_app/shared/button/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
-import 'package:conet_app/util/constant/test_strings.dart';
+import 'package:conet_app/util/constant/text_strings.dart';
+import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:conet_app/util/validators/auth_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,7 @@ class _CreateAccountState extends ConsumerState<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -35,7 +37,10 @@ class _CreateAccountState extends ConsumerState<CreateAccount> {
                   const SizedBox(height: 40),
 
                   /// Illustration
-                  Image.asset(Appimages.createAccImg, width: 300),
+                  Image.asset(
+                    dark ? Appimages.createAccImgDark : Appimages.createAccImg,
+                    width: 300,
+                  ),
 
                   const SizedBox(height: 40),
 

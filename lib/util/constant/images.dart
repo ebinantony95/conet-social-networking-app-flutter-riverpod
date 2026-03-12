@@ -1,7 +1,9 @@
 class Appimages {
   //login...
-  static const logonImg = 'assets/image/login.png';
+  static const loginImg = 'assets/image/login.png';
   static const createAccImg = 'assets/image/craete_acc.png';
+  static const logonImgDark = 'assets/image/login_dark.png';
+  static const createAccImgDark = 'assets/image/create_acc_dark.png';
 
   // onboarding....
   static const onboardingImg = 'assets/onboarding/vibrent.png';

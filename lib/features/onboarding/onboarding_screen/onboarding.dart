@@ -1,7 +1,7 @@
 import 'package:conet_app/shared/button/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
-import 'package:conet_app/util/constant/test_strings.dart';
+import 'package:conet_app/util/constant/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

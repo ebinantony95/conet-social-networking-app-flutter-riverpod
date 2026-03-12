@@ -1,7 +1,8 @@
 import 'package:conet_app/shared/button/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
-import 'package:conet_app/util/constant/test_strings.dart';
+import 'package:conet_app/util/constant/text_strings.dart';
+import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:conet_app/util/validators/auth_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // for dark mode switch
+    final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -35,7 +38,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 40),
 
                   /// Illustration
-                  Image.asset(Appimages.logonImg),
+                  Image.asset(
+                    dark ? Appimages.logonImgDark : Appimages.loginImg,
+                  ),
 
                   const SizedBox(height: 40),
 
