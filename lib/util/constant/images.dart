@@ -1,4 +1,4 @@
-class Myimages {
+class Appimages {
   //login...
   static const logonImg = 'assets/image/login.png';
   static const createAccImg = 'assets/image/craete_acc.png';

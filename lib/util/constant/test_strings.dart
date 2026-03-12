@@ -1,4 +1,4 @@
-class MyTexts {
+class AppTexts {
   //onboarding title
   static const onboardingTitle0 = 'Find Your Kind of People';
   static const onboardingTitle1 = 'what are you into?';
@@ -6,7 +6,7 @@ class MyTexts {
   static const onboardingTitle3 = 'what do you love to learn';
   //onboarding sub title
   static const onboardingSubTitle0 =
-      'Connect with people who share your\npassions, interests, and curiosity.';
+      'Connect with people who share your\n passions, interests, and curiosity.';
   static const onboardingSubTitle1 = 'Select topic that  interest you';
   static const onboardingSubTitle2 = 'Skills that can you help with others';
   static const onboardingSubTitle3 = 'Skills that  you want to learn';
@@ -17,6 +17,6 @@ class MyTexts {
   static const createAcc = 'Create Account';
   static const login = 'Login';
   static const lestGO = "Let's go";
-  static const accountQn = 'already have account?';
+  static const accountQn = 'already have an account?';
   static const loginQn = 'Don’t have an account?';
 }

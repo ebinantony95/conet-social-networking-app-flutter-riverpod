@@ -17,13 +17,13 @@ class MyApptexttheme {
     ),
     headlineSmall: TextStyle().copyWith(
       fontSize: 18.0,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w300,
       color: Colors.black,
     ),
 
     //tite....
     titleLarge: TextStyle().copyWith(
-      fontSize: 16.0,
+      fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
