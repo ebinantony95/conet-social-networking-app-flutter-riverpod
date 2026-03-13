@@ -1,4 +1,4 @@
-import 'package:conet_app/features/authentication/viewmodel/auth_view_model.dart';
+import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
 import 'package:conet_app/shared/button/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
@@ -39,8 +39,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(authViewModelProvider);
+    // watch state
+    final authState = ref.watch(authViewModelProvider);
+    // listen error
 
+    ref.listen(authViewModelProvider, (previous, next) {
+      next.whenOrNull(
+        data: (_) {
+          context.goNamed('home'); // navigate to home
+        },
+
+        error: (error, stack) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(error.toString())));
+        },
+      );
+    });
     // for dark mode switch
     final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
@@ -98,21 +113,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   SizedBox(
                     width: 350,
                     child: GradientElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          print("Form is valid");
-                        } else {
-                          print("Form not valid");
-                        }
-                      },
+                      onPressed: authState.isLoading
+                          ? null
+                          : () async {
+                              if (_formKey.currentState!.validate()) {
+                                final email = emailController.text.trim();
+                                final password = passwordController.text.trim();
+
+                                await ref
+                                    .read(authViewModelProvider.notifier)
+                                    .login(email: email, password: password);
+                              }
+                            },
+
                       height: 65,
                       borderRadius: 20,
-                      child: Text(
-                        AppTexts.login,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleLarge!.copyWith(color: Colors.white),
-                      ),
+
+                      child: authState.isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              AppTexts.login,
+                              style: Theme.of(context).textTheme.titleLarge!
+                                  .copyWith(color: Colors.white),
+                            ),
                     ),
                   ),
 

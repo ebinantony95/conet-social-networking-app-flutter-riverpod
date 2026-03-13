@@ -8,6 +8,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print("Firebase Connected Successfully");
+
   runApp(ProviderScope(child: const App()));
 }
