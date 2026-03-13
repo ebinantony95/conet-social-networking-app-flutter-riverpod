@@ -1,5 +1,5 @@
 import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
-import 'package:conet_app/shared/button/gradient_elevated_button.dart';
+import 'package:conet_app/shared/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
 import 'package:conet_app/util/constant/text_strings.dart';
@@ -46,7 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     ref.listen(authViewModelProvider, (previous, next) {
       next.whenOrNull(
         data: (_) {
-          context.goNamed('home'); // navigate to home
+          context.goNamed('interest'); // navigate to home
         },
 
         error: (error, stack) {
