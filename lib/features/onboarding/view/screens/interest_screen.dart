@@ -1,57 +1,47 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conet_app/features/onboarding/view_model/onboarding_service_provider.dart';
-import 'package:conet_app/shared/gradient_elevated_button.dart';
-import 'package:conet_app/shared/selectable_chip.dart';
+import 'package:conet_app/common/gradient_elevated_button.dart';
+import 'package:conet_app/common/selectable_chip.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:conet_app/util/constant/text_strings.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LearningScreen extends ConsumerStatefulWidget {
-  final List<String> interests;
-  final List<String> skills;
-
-  const LearningScreen({
-    super.key,
-    required this.interests,
-    required this.skills,
-  });
+class InterestScreen extends ConsumerStatefulWidget {
+  const InterestScreen({super.key});
 
   @override
-  ConsumerState<LearningScreen> createState() => _LearningScreenState();
+  ConsumerState<InterestScreen> createState() => _InterestScreenState();
 }
 
-class _LearningScreenState extends ConsumerState<LearningScreen> {
-  List<String> selectedLearning = [];
+class _InterestScreenState extends ConsumerState<InterestScreen> {
+  List<String> selected = [];
 
   void toggle(String id) {
     setState(() {
-      if (selectedLearning.contains(id)) {
-        selectedLearning.remove(id);
+      if (selected.contains(id)) {
+        selected.remove(id);
       } else {
-        selectedLearning.add(id);
+        selected.add(id);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final skills = ref.watch(skillsProvider);
+    final interests = ref.watch(interestProvider);
 
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
-
               Text(
-                "STEP 3 OF 3",
+                'STEP 1 OF 3',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.chipSelectColor,
                 ),
@@ -60,29 +50,28 @@ class _LearningScreenState extends ConsumerState<LearningScreen> {
               const SizedBox(height: 10),
 
               Text(
-                AppTexts.onboardingTitle3,
+                AppTexts.onboardingTitle1,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 10),
-
               Text(
-                AppTexts.onboardingSubTitle3,
+                AppTexts.onboardingSubTitle1,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
 
               const SizedBox(height: 20),
 
               Expanded(
-                child: skills.when(
+                child: interests.when(
                   data: (data) {
                     return Wrap(
                       spacing: 10,
                       runSpacing: 10,
-                      children: data.map((skill) {
+                      children: data.map((interest) {
                         return SelectableChip(
-                          label: skill.name,
-                          selected: selectedLearning.contains(skill.id),
-                          onTap: () => toggle(skill.id),
+                          label: interest.name,
+                          selected: selected.contains(interest.id),
+                          onTap: () => toggle(interest.id),
                         );
                       }).toList(),
                     );
@@ -94,19 +83,8 @@ class _LearningScreenState extends ConsumerState<LearningScreen> {
               ),
 
               GradientElevatedButton(
-                onPressed: () async {
-                  final uid = FirebaseAuth.instance.currentUser!.uid;
-
-                  await FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(uid)
-                      .update({
-                        "interests": widget.interests,
-                        "skills": widget.skills,
-                        "learning": selectedLearning,
-                      });
-
-                  context.goNamed('home');
+                onPressed: () {
+                  context.pushNamed('skill', extra: selected);
                 },
                 height: 65,
                 borderRadius: 20,

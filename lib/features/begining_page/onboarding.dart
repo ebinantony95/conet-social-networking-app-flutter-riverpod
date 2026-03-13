@@ -1,9 +1,10 @@
-import 'package:conet_app/shared/gradient_elevated_button.dart';
+import 'package:conet_app/common/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
 import 'package:conet_app/util/constant/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({super.key});
@@ -42,8 +43,12 @@ class Onboarding extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: GradientElevatedButton(
-                      onPressed: () {
-                        context.pushNamed('login');
+                      // shared preference
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool("seen_onboarding", true);
+
+                        context.goNamed("login");
                       },
                       height: 65,
                       borderRadius: 20,

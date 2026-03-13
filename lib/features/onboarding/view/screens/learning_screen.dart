@@ -1,30 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conet_app/features/onboarding/view_model/onboarding_service_provider.dart';
-import 'package:conet_app/shared/gradient_elevated_button.dart';
-import 'package:conet_app/shared/selectable_chip.dart';
+import 'package:conet_app/common/gradient_elevated_button.dart';
+import 'package:conet_app/common/selectable_chip.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:conet_app/util/constant/text_strings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SkillsScreen extends ConsumerStatefulWidget {
+class LearningScreen extends ConsumerStatefulWidget {
   final List<String> interests;
+  final List<String> skills;
 
-  const SkillsScreen({super.key, required this.interests});
+  const LearningScreen({
+    super.key,
+    required this.interests,
+    required this.skills,
+  });
 
   @override
-  ConsumerState<SkillsScreen> createState() => _SkillsScreenState();
+  ConsumerState<LearningScreen> createState() => _LearningScreenState();
 }
 
-class _SkillsScreenState extends ConsumerState<SkillsScreen> {
-  List<String> selectedSkills = [];
+class _LearningScreenState extends ConsumerState<LearningScreen> {
+  List<String> selectedLearning = [];
 
   void toggle(String id) {
     setState(() {
-      if (selectedSkills.contains(id)) {
-        selectedSkills.remove(id);
+      if (selectedLearning.contains(id)) {
+        selectedLearning.remove(id);
       } else {
-        selectedSkills.add(id);
+        selectedLearning.add(id);
       }
     });
   }
@@ -38,14 +45,11 @@ class _SkillsScreenState extends ConsumerState<SkillsScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 50),
-
               Text(
-                "STEP 2 OF 3",
+                "STEP 3 OF 3",
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.chipSelectColor,
                 ),
@@ -54,12 +58,13 @@ class _SkillsScreenState extends ConsumerState<SkillsScreen> {
               const SizedBox(height: 10),
 
               Text(
-                AppTexts.onboardingTitle2,
+                AppTexts.onboardingTitle3,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 10),
+
               Text(
-                AppTexts.onboardingSubTitle2,
+                AppTexts.onboardingSubTitle3,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
 
@@ -74,7 +79,7 @@ class _SkillsScreenState extends ConsumerState<SkillsScreen> {
                       children: data.map((skill) {
                         return SelectableChip(
                           label: skill.name,
-                          selected: selectedSkills.contains(skill.id),
+                          selected: selectedLearning.contains(skill.id),
                           onTap: () => toggle(skill.id),
                         );
                       }).toList(),
@@ -87,14 +92,19 @@ class _SkillsScreenState extends ConsumerState<SkillsScreen> {
               ),
 
               GradientElevatedButton(
-                onPressed: () {
-                  context.pushNamed(
-                    'learn',
-                    extra: {
-                      "interests": widget.interests,
-                      "skills": selectedSkills,
-                    },
-                  );
+                onPressed: () async {
+                  final uid = FirebaseAuth.instance.currentUser!.uid;
+
+                  await FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(uid)
+                      .set({
+                        "interests": widget.interests,
+                        "skills": widget.skills,
+                        "learning": selectedLearning,
+                      }, SetOptions(merge: true));
+
+                  context.goNamed('home');
                 },
                 height: 65,
                 borderRadius: 20,

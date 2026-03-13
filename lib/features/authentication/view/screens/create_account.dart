@@ -1,5 +1,5 @@
 import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
-import 'package:conet_app/shared/gradient_elevated_button.dart';
+import 'package:conet_app/common/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/constant/sizes.dart';
 import 'package:conet_app/util/constant/text_strings.dart';
@@ -9,31 +9,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+class CreateAccount extends ConsumerStatefulWidget {
+  const CreateAccount({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _CreateAccountState extends ConsumerState<CreateAccount> {
   // global form key to identify the state changes in the form
   final _formKey = GlobalKey<FormState>();
-
   // text editing controllers
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final TextEditingController nameController;
+
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    nameController = TextEditingController();
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
+
     super.dispose();
   }
 
@@ -46,7 +50,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     ref.listen(authViewModelProvider, (previous, next) {
       next.whenOrNull(
         data: (_) {
-          context.goNamed('interest'); // navigate to home
+          context.goNamed('interest'); // navigate to onboarding
         },
 
         error: (error, stack) {
@@ -56,7 +60,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         },
       );
     });
-    // for dark mode switch
     final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
       body: Form(
@@ -74,10 +77,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   /// Illustration
                   Image.asset(
-                    dark ? Appimages.logonImgDark : Appimages.loginImg,
+                    dark ? Appimages.createAccImgDark : Appimages.createAccImg,
+                    width: 300,
                   ),
 
                   const SizedBox(height: 40),
+
+                  /// name Field
+                  TextFormField(
+                    controller: nameController,
+                    validator: AuthValidators.name,
+                    decoration: InputDecoration(hintText: "Name"),
+                  ),
+                  const SizedBox(height: 20),
 
                   /// Email Field
                   TextFormField(
@@ -98,18 +110,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   const SizedBox(height: 10),
 
-                  /// Forgot password
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text("forgot password?"),
-                    ),
-                  ),
-
                   const SizedBox(height: 20),
 
-                  /// Login Button..........
+                  /// create acc Button
                   SizedBox(
                     width: 350,
                     child: GradientElevatedButton(
@@ -117,22 +120,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ? null
                           : () async {
                               if (_formKey.currentState!.validate()) {
+                                final name = nameController.text.trim();
                                 final email = emailController.text.trim();
                                 final password = passwordController.text.trim();
 
                                 await ref
                                     .read(authViewModelProvider.notifier)
-                                    .login(email: email, password: password);
+                                    .signup(
+                                      email: email,
+                                      password: password,
+                                      name: name,
+                                      interests: [],
+                                      skillsToTeach: [],
+                                      skillsToLearn: [],
+                                    );
                               }
                             },
 
                       height: 65,
                       borderRadius: 20,
-
                       child: authState.isLoading
                           ? const CircularProgressIndicator(color: Colors.white)
                           : Text(
-                              AppTexts.login,
+                              AppTexts.createAcc,
                               style: Theme.of(context).textTheme.titleLarge!
                                   .copyWith(color: Colors.white),
                             ),
@@ -141,17 +151,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   const SizedBox(height: 30),
 
-                  /// Signup redirect
+                  /// login redirect
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(AppTexts.loginQn),
+                      const Text(AppTexts.accountQn),
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed('createAcc');
+                          context.pushNamed('login');
                         },
                         child: const Text(
-                          " SignUp",
+                          " Login",
                           style: TextStyle(
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
