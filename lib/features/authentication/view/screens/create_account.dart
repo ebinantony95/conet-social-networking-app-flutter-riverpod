@@ -131,8 +131,8 @@ class _CreateAccountState extends ConsumerState<CreateAccount> {
                                       password: password,
                                       name: name,
                                       interests: [],
-                                      skillsToTeach: [],
-                                      skillsToLearn: [],
+                                      skills: [],
+                                      learning: [],
                                     );
                               }
                             },

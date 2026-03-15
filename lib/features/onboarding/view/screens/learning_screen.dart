@@ -102,6 +102,7 @@ class _LearningScreenState extends ConsumerState<LearningScreen> {
                         "interests": widget.interests,
                         "skills": widget.skills,
                         "learning": selectedLearning,
+                        "profileCompleted": true,
                       }, SetOptions(merge: true));
 
                   context.goNamed('home');

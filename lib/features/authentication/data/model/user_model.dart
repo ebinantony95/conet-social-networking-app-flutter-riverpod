@@ -5,8 +5,8 @@ class UserModel {
   final String email;
   final String name;
   final List<String> interests;
-  final List<String> skillsToTeach;
-  final List<String> skillsToLearn;
+  final List<String> skills;
+  final List<String> learning;
   final Timestamp createdAt;
 
   UserModel({
@@ -14,8 +14,8 @@ class UserModel {
     required this.email,
     required this.name,
     required this.interests,
-    required this.skillsToTeach,
-    required this.skillsToLearn,
+    required this.skills,
+    required this.learning,
     required this.createdAt,
   });
 
@@ -26,8 +26,8 @@ class UserModel {
       "name": name,
       "email": email,
       "interests": interests,
-      "skillsToTeach": skillsToTeach,
-      "skillsToLearn": skillsToLearn,
+      "skills": skills,
+      "learning": learning,
       "createdAt": createdAt,
     };
   }
@@ -39,8 +39,8 @@ class UserModel {
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       interests: List<String>.from(map['interests'] ?? []),
-      skillsToTeach: List<String>.from(map['skillsToTeach'] ?? []),
-      skillsToLearn: List<String>.from(map['skillsToLearn'] ?? []),
+      skills: List<String>.from(map['skills'] ?? []),
+      learning: List<String>.from(map['learning'] ?? []),
       createdAt: map['createdAt'] ?? Timestamp.now(),
     );
   }
@@ -51,8 +51,8 @@ class UserModel {
     String? name,
     String? email,
     List<String>? interests,
-    List<String>? skillsToTeach,
-    List<String>? skillsToLearn,
+    List<String>? skills,
+    List<String>? learning,
     Timestamp? createdAt,
   }) {
     return UserModel(
@@ -60,8 +60,8 @@ class UserModel {
       name: name ?? this.name,
       email: email ?? this.email,
       interests: interests ?? this.interests,
-      skillsToTeach: skillsToTeach ?? this.skillsToTeach,
-      skillsToLearn: skillsToLearn ?? this.skillsToLearn,
+      skills: skills ?? this.skills,
+      learning: learning ?? this.learning,
       createdAt: createdAt ?? this.createdAt,
     );
   }

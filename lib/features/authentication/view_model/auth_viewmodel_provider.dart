@@ -20,8 +20,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<void>> {
     required String email,
     required String password,
     required List<String> interests,
-    required List<String> skillsToTeach,
-    required List<String> skillsToLearn,
+    required List<String> skills,
+    required List<String> learning,
   }) async {
     state = const AsyncLoading();
 
@@ -31,8 +31,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<void>> {
         name: name,
         email: email,
         interests: interests,
-        skillsToTeach: skillsToTeach,
-        skillsToLearn: skillsToLearn,
+        skills: skills,
+        learning: learning,
         createdAt: Timestamp.now(),
       );
 

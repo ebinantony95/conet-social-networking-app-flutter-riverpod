@@ -1,23 +1,110 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conet_app/features/authentication/view/provider/auth_state_provider.dart';
 import 'package:conet_app/features/authentication/view/screens/create_account.dart';
 import 'package:conet_app/features/authentication/view/screens/login.dart';
+import 'package:conet_app/features/landing_page/landing_page.dart';
+import 'package:conet_app/features/discover/discover_page.dart';
 import 'package:conet_app/features/home/home_page.dart';
-import 'package:conet_app/features/begining_page/onboarding.dart';
+import 'package:conet_app/features/landing_page/landing_provider.dart';
+import 'package:conet_app/features/match/match_page.dart';
 import 'package:conet_app/features/onboarding/view/screens/interest_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/learning_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/skill_screen.dart';
-
+import 'package:conet_app/features/profile/profile_page.dart';
+import 'package:conet_app/features/request/request_page.dart';
+import 'package:conet_app/navigation/bottomNAVbar/bottom_nav_shell.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  return GoRouter(
-    initialLocation: "/onboarding",
+  final authState = ref.watch(authStateProvider);
+  final landingAsync = ref.watch(landingStatusProvider);
 
+  return GoRouter(
+    initialLocation: "/",
+
+    redirect: (context, state) async {
+      if (authState.isLoading) return null;
+
+      if (landingAsync.isLoading) return null;
+
+      final user = authState.value;
+      final isLoggedIn = user != null;
+      final seenLanding = landingAsync.value ?? false;
+
+      //match locations......
+      final location = state.matchedLocation;
+
+      final landingRoute = location == '/landing';
+
+      final onboardingRoute =
+          location == '/interest' ||
+          location == '/skill' ||
+          location == '/learn';
+
+      final authRoute = location == '/login' || location == '/createAcc';
+
+      if (location == "/") {
+        if (!seenLanding) return "/landing";
+
+        if (!isLoggedIn) return "/login";
+
+        final doc = await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user.uid)
+            .get();
+
+        final completed = doc.data()?["profileCompleted"] ?? false;
+
+        if (!completed) return "/interest";
+
+        return "/profile";
+      }
+
+      /// 1️⃣ Landing page
+      if (!seenLanding && !landingRoute && !isLoggedIn && !onboardingRoute) {
+        return "/landing";
+      }
+
+      /// 2️⃣ Not logged in
+      if (!isLoggedIn) {
+        return authRoute ? null : "/login";
+      }
+
+      /// 3️⃣ Logged in → prevent going back to login
+      if (isLoggedIn && authRoute) {
+        return "/profile";
+      }
+
+      /// 4️⃣ Onboarding check
+      final doc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .get();
+
+      final completed = doc.data()?["profileCompleted"] ?? false;
+
+      if (!completed && !onboardingRoute) {
+        return "/interest";
+      }
+
+      if (completed && onboardingRoute) {
+        return "/profile";
+      }
+
+      return null;
+    },
     routes: [
       GoRoute(
-        path: "/onboarding",
-        name: "onboarding",
-        builder: (context, state) => const Onboarding(),
+        path: "/",
+        builder: (context, state) =>
+            const Scaffold(body: Center(child: CircularProgressIndicator())),
+      ),
+      GoRoute(
+        path: "/landing",
+        name: "landing",
+        builder: (context, state) => const LandingPage(),
       ),
 
       GoRoute(
@@ -30,12 +117,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: "/createAcc",
         name: "createAcc",
         builder: (context, state) => const CreateAccount(),
-      ),
-
-      GoRoute(
-        path: "/home",
-        name: "home",
-        builder: (context, state) => const HomePage(),
       ),
 
       GoRoute(
@@ -63,6 +144,43 @@ final routerProvider = Provider<GoRouter>((ref) {
 
           return LearningScreen(interests: interests, skills: skills);
         },
+      ),
+
+      // main app with Bottom NAV bar
+      ShellRoute(
+        builder: (context, state, child) => BottomNavshell(child: child),
+        routes: [
+          // home.........
+          GoRoute(
+            path: '/home',
+            name: 'home',
+            builder: (context, state) => HomePage(),
+          ),
+          // discover......
+          GoRoute(
+            path: '/discover',
+            name: 'discover',
+            builder: (context, state) => DiscoverPage(),
+          ),
+          //match......
+          GoRoute(
+            path: '/match',
+            name: 'match',
+            builder: (context, state) => MatchPage(),
+          ),
+          //requests...
+          GoRoute(
+            path: '/request',
+            name: 'request',
+            builder: (context, state) => RequestPage(),
+          ),
+          //profile...
+          GoRoute(
+            path: '/profile',
+            name: 'profile',
+            builder: (context, state) => ProfilePage(),
+          ),
+        ],
       ),
     ],
   );

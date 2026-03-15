@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color bright = Color(0xffFAFBF9);
-  static const Color dark = Color(0xff10111A);
+  static const Color dark = Color(0xff101118);
   static const Color chipColor = Color(0xffFAE5EF);
   static const Color chipSelectColor = Color(0xffE2397D);
 
