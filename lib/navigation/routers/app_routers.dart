@@ -10,7 +10,7 @@ import 'package:conet_app/features/match/match_page.dart';
 import 'package:conet_app/features/onboarding/view/screens/interest_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/learning_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/skill_screen.dart';
-import 'package:conet_app/features/profile/profile_page.dart';
+import 'package:conet_app/features/profile/view/profile_page.dart';
 import 'package:conet_app/features/request/request_page.dart';
 import 'package:conet_app/navigation/bottomNAVbar/bottom_nav_shell.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +59,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
         if (!completed) return "/interest";
 
-        return "/profile";
+        return "/profile/${user.uid}";
       }
 
       /// 1️⃣ Landing page
@@ -74,7 +74,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       /// 3️⃣ Logged in → prevent going back to login
       if (isLoggedIn && authRoute) {
-        return "/profile";
+        return "/profile/${user.uid}";
       }
 
       /// 4️⃣ Onboarding check
@@ -90,7 +90,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       }
 
       if (completed && onboardingRoute) {
-        return "/profile";
+        return "/profile/${user.uid}";
       }
 
       return null;
@@ -176,9 +176,12 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           //profile...
           GoRoute(
-            path: '/profile',
+            path: '/profile/:uid',
             name: 'profile',
-            builder: (context, state) => ProfilePage(),
+            builder: (context, state) {
+              final uid = state.pathParameters['uid']!;
+              return ProfilePage(uid: uid);
+            },
           ),
         ],
       ),
