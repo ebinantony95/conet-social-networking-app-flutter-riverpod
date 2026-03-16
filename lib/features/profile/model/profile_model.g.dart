@@ -23,13 +23,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       skillsHave: (fields[3] as List).cast<String>(),
       skillsLearn: (fields[4] as List).cast<String>(),
       name: fields[5] as String,
+      avatar: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(4)
       ..write(obj.skillsLearn)
       ..writeByte(5)
-      ..write(obj.name);
+      ..write(obj.name)
+      ..writeByte(6)
+      ..write(obj.avatar);
   }
 
   @override

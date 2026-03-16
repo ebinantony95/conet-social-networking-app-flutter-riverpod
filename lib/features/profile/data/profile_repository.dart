@@ -3,8 +3,9 @@ import 'package:conet_app/features/profile/model/profile_model.dart';
 import 'package:hive/hive.dart';
 
 class ProfileRepository {
-  final firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  /// Get profile (Hive cache → Firestore fallback)
   Future<UserProfile?> getProfile(String uid) async {
     final box = Hive.box<UserProfile>("profileBox");
 
@@ -25,17 +26,17 @@ class ProfileRepository {
     return profile;
   }
 
-  // for updating the bio
-  Future<void> updateBio(String uid, String bio) async {
+  /// Update profile (bio + avatar)
+  Future<void> updateProfile(UserProfile profile) async {
     final box = Hive.box<UserProfile>("profileBox");
 
-    final profile = box.get(uid);
+    /// update hive
+    await box.put(profile.uid, profile);
 
-    if (profile != null) {
-      profile.bio = bio;
-      await profile.save();
-    }
-
-    await firestore.collection("users").doc(uid).update({"bio": bio});
+    /// update firestore
+    await firestore.collection("users").doc(profile.uid).update({
+      "bio": profile.bio,
+      "avatar": profile.avatar,
+    });
   }
 }

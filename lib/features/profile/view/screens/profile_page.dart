@@ -1,5 +1,6 @@
 import 'package:conet_app/features/profile/view/widgets/custom_containers.dart';
 import 'package:conet_app/features/profile/view/widgets/custom_profilechip.dart';
+import 'package:conet_app/features/profile/view/widgets/image_container.dart';
 import 'package:conet_app/features/profile/view_model/profile_view_model.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:flutter/material.dart';
@@ -52,11 +53,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // image...........
-                    Container(
-                      width: 130,
-                      height: 135,
-                      color: AppColors.chipColor,
-                    ),
+                    ImageContainer(profile: profile),
+
                     SizedBox(height: 20),
                     // name..............
                     Text(
@@ -65,8 +63,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                     const SizedBox(height: 20),
                     // bio........
-                    Text("Bio: ${profile.bio}"),
-                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        profile.bio,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    const SizedBox(height: 50),
 
                     // interest...................................
                     CustomContainers(

@@ -1,3 +1,4 @@
+import 'package:conet_app/util/constant/images.dart';
 import 'package:hive/hive.dart';
 
 part 'profile_model.g.dart';
@@ -22,23 +23,28 @@ class UserProfile extends HiveObject {
   @HiveField(5)
   String name;
 
+  @HiveField(6)
+  String avatar;
+
   UserProfile({
     required this.uid,
-    required this.bio,
+    this.bio = "Tell people about yourself...",
     required this.interests,
     required this.skillsHave,
     required this.skillsLearn,
     required this.name,
+    this.avatar = Appimages.defaultAvatar,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json, String uid) {
     return UserProfile(
       uid: uid,
-      bio: json["bio"] ?? "",
+      bio: json["bio"] ?? "Tell people about yourself...",
       interests: List<String>.from(json["interests"] ?? []),
       skillsHave: List<String>.from(json["skills"] ?? []),
       skillsLearn: List<String>.from(json["learning"] ?? []),
       name: json["name"] ?? "",
+      avatar: json["avatar"] ?? Appimages.defaultAvatar,
     );
   }
 
@@ -49,6 +55,7 @@ class UserProfile extends HiveObject {
       "skills": skillsHave,
       "learning": skillsLearn,
       "name": name,
+      "avatar": avatar,
     };
   }
 }

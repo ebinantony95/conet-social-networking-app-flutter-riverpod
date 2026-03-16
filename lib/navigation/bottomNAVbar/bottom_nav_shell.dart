@@ -1,4 +1,5 @@
 import 'package:conet_app/util/constant/sizes%20copy.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,7 @@ class BottomNavshell extends ConsumerWidget {
   }
 
   void _ontap(BuildContext context, int index) {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
     switch (index) {
       case 0:
         context.go('/home');
@@ -31,7 +33,7 @@ class BottomNavshell extends ConsumerWidget {
         context.go('/request');
         break;
       case 4:
-        context.go('/profile');
+        context.go('/profile/$uid');
         break;
     }
   }
