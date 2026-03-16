@@ -32,9 +32,16 @@ class GradientElevatedButton extends StatelessWidget {
         ),
         child: Ink(
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [AppColors.gradientColor1, AppColors.gradientColor2],
-            ),
+            gradient: onPressed == null
+                ? const LinearGradient(
+                    colors: [Colors.black54, Colors.blueGrey],
+                  )
+                : const LinearGradient(
+                    colors: [
+                      AppColors.gradientColor1,
+                      AppColors.gradientColor2,
+                    ],
+                  ),
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: Center(child: child),

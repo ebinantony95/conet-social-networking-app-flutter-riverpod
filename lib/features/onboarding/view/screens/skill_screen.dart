@@ -85,15 +85,17 @@ class _SkillsScreenState extends ConsumerState<SkillsScreen> {
               ),
 
               GradientElevatedButton(
-                onPressed: () {
-                  context.pushNamed(
-                    'learn',
-                    extra: {
-                      "interests": widget.interests,
-                      "skills": selectedSkills,
-                    },
-                  );
-                },
+                onPressed: selectedSkills.isEmpty
+                    ? null
+                    : () {
+                        context.pushNamed(
+                          'learn',
+                          extra: {
+                            "interests": widget.interests,
+                            "skills": selectedSkills,
+                          },
+                        );
+                      },
                 height: 65,
                 borderRadius: 20,
                 child: Text(

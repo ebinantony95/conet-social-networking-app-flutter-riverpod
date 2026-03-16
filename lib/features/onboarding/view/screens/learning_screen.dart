@@ -92,21 +92,23 @@ class _LearningScreenState extends ConsumerState<LearningScreen> {
               ),
 
               GradientElevatedButton(
-                onPressed: () async {
-                  final uid = FirebaseAuth.instance.currentUser!.uid;
+                onPressed: selectedLearning.isEmpty
+                    ? null
+                    : () async {
+                        final uid = FirebaseAuth.instance.currentUser!.uid;
 
-                  await FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(uid)
-                      .set({
-                        "interests": widget.interests,
-                        "skills": widget.skills,
-                        "learning": selectedLearning,
-                        "profileCompleted": true,
-                      }, SetOptions(merge: true));
+                        await FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(uid)
+                            .set({
+                              "interests": widget.interests,
+                              "skills": widget.skills,
+                              "learning": selectedLearning,
+                              "profileCompleted": true,
+                            }, SetOptions(merge: true));
 
-                  context.goNamed('home');
-                },
+                        context.goNamed('home');
+                      },
                 height: 65,
                 borderRadius: 20,
                 child: Text(

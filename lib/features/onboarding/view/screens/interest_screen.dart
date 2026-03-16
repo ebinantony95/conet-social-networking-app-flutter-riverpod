@@ -83,9 +83,11 @@ class _InterestScreenState extends ConsumerState<InterestScreen> {
               ),
 
               GradientElevatedButton(
-                onPressed: () {
-                  context.pushNamed('skill', extra: selected);
-                },
+                onPressed: selected.isEmpty
+                    ? null
+                    : () {
+                        context.pushNamed('skill', extra: selected);
+                      },
                 height: 65,
                 borderRadius: 20,
                 child: Text(

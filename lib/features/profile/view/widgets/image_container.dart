@@ -12,11 +12,11 @@ class ImageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = AppHelpers.isDarkMode(context);
     return Container(
-      width: 200,
-      height: 200,
+      width: 180,
+      height: 180,
       decoration: BoxDecoration(
         color: dark ? AppColors.dark : AppColors.bright,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(50),
         border: Border.all(color: Colors.grey),
       ),
       child: Stack(
