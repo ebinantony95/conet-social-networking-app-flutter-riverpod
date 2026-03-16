@@ -9,12 +9,19 @@ class CustomContainers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AppHelpers.isDarkMode(context);
-    return // interests............
-    Container(
+    return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: dark ? AppColors.containerDark : AppColors.containerLight,
         borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 20,
+            offset: Offset(0, 10),
+          ),
+        ],
       ),
 
       child: child,

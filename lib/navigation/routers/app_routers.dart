@@ -10,7 +10,7 @@ import 'package:conet_app/features/match/match_page.dart';
 import 'package:conet_app/features/onboarding/view/screens/interest_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/learning_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/skill_screen.dart';
-import 'package:conet_app/features/profile/view/profile_page.dart';
+import 'package:conet_app/features/profile/view/screens/profile_page.dart';
 import 'package:conet_app/features/request/request_page.dart';
 import 'package:conet_app/navigation/bottomNAVbar/bottom_nav_shell.dart';
 import 'package:flutter/material.dart';
