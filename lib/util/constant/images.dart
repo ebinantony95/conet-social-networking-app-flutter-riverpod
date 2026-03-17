@@ -15,6 +15,10 @@ class Appimages {
   static const logoLight = 'assets/logo/logo_light.png';
   static const logoWSenDark = 'assets/logo/logo_sen_dark.png';
   static const logoWSenLight = 'assets/logo/logo_sen_light.png';
+  static const conetLight = 'assets/logo/conet_light.png';
+  static const conetDark = 'assets/logo/conet_dart.png';
+  static const splashLight = 'assets/logo/splash_light.png';
+  static const splashDark = 'assets/logo/spalash_dark.png';
 
   // avatar
   static const defaultAvatar = 'assets/avatars/default_image.png';

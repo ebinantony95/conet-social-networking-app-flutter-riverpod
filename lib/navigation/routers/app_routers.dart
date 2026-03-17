@@ -3,7 +3,7 @@ import 'package:conet_app/features/authentication/view/provider/auth_state_provi
 import 'package:conet_app/features/authentication/view/screens/create_account.dart';
 import 'package:conet_app/features/authentication/view/screens/login.dart';
 import 'package:conet_app/features/landing_page/landing_page.dart';
-import 'package:conet_app/features/discover/discover_page.dart';
+import 'package:conet_app/features/discover/view/screens/discover_page.dart';
 import 'package:conet_app/features/home/home_page.dart';
 import 'package:conet_app/features/landing_page/landing_provider.dart';
 import 'package:conet_app/features/match/match_page.dart';
