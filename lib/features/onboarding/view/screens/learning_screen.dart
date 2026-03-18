@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conet_app/features/onboarding/view/provider/profile_complete_provoider.dart';
 import 'package:conet_app/features/onboarding/view_model/onboarding_service_provider.dart';
 import 'package:conet_app/common/gradient_elevated_button.dart';
 import 'package:conet_app/common/selectable_chip.dart';
@@ -107,7 +108,11 @@ class _LearningScreenState extends ConsumerState<LearningScreen> {
                               "profileCompleted": true,
                             }, SetOptions(merge: true));
 
-                        context.goNamed('home');
+                        ref.invalidate(profileCompletedProvider); // 🔥 FIX
+
+                        if (context.mounted) {
+                          context.goNamed('home');
+                        }
                       },
                 height: 65,
                 borderRadius: 20,

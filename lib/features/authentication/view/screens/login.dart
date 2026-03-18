@@ -1,3 +1,5 @@
+import 'package:conet_app/features/authentication/view/widgets/auth_toggle_button.dart';
+import 'package:conet_app/features/authentication/view/widgets/forget_password.dart';
 import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
 import 'package:conet_app/common/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
@@ -99,13 +101,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 10),
 
                   /// Forgot password
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text("forgot password?"),
-                    ),
-                  ),
+                  ForgetPassword(),
 
                   const SizedBox(height: 20),
 
@@ -142,23 +138,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 30),
 
                   /// Signup redirect
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(AppTexts.loginQn),
-                      GestureDetector(
-                        onTap: () {
-                          context.pushNamed('createAcc');
-                        },
-                        child: const Text(
-                          " SignUp",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                  AuthToggleButton(
+                    ontap: () {
+                      context.pushNamed('createAcc');
+                    },
+                    label: " SignUp",
+                    color: Colors.blue,
+                    accQn: AppTexts.loginQn,
                   ),
                 ],
               ),

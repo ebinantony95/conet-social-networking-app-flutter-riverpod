@@ -47,7 +47,12 @@ class LandingPage extends ConsumerWidget {
                       // shared preference
                       onPressed: () async {
                         await ref.read(landingProvider).completeOnboarding();
-                        context.go("/login");
+
+                        ref.invalidate(landingStatusProvider); // 🔥 REQUIRED
+
+                        if (context.mounted) {
+                          context.go("/login");
+                        }
                       },
                       height: 65,
                       borderRadius: 20,

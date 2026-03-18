@@ -1,3 +1,4 @@
+import 'package:conet_app/features/authentication/view/widgets/auth_toggle_button.dart';
 import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
 import 'package:conet_app/common/gradient_elevated_button.dart';
 import 'package:conet_app/util/constant/images.dart';
@@ -151,24 +152,14 @@ class _CreateAccountState extends ConsumerState<CreateAccount> {
 
                   const SizedBox(height: 30),
 
-                  /// login redirect
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(AppTexts.accountQn),
-                      GestureDetector(
-                        onTap: () {
-                          context.pushNamed('login');
-                        },
-                        child: const Text(
-                          " Login",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+                  /// login redirect...........
+                  AuthToggleButton(
+                    ontap: () {
+                      context.pushNamed('login');
+                    },
+                    label: "Login",
+                    color: Colors.blue,
+                    accQn: AppTexts.accountQn,
                   ),
                 ],
               ),

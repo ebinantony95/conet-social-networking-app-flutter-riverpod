@@ -30,19 +30,6 @@ class ImageContainer extends StatelessWidget {
             child: Image.asset(profile.avatar),
           ),
 
-          // Center(
-          //   child: CircleAvatar(
-          //     radius: 70,
-          //     backgroundColor: Colors.transparent,
-          //     backgroundImage: profile.avatar.isNotEmpty
-          //         ? AssetImage(profile.avatar)
-          //         : null,
-          //     child: profile.avatar.isEmpty
-          //         ? const Icon(Icons.person, size: 40)
-          //         : null,
-          //   ),
-          // ),
-
           /// Edit button
           Positioned(
             right: 0,

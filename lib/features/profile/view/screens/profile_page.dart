@@ -1,5 +1,4 @@
 import 'package:conet_app/features/profile/view/widgets/custom_containers.dart';
-import 'package:conet_app/features/profile/view/widgets/custom_profilechip.dart';
 import 'package:conet_app/features/profile/view/widgets/image_container.dart';
 import 'package:conet_app/features/profile/view_model/profile_view_model.dart';
 import 'package:conet_app/util/constant/colors.dart';
@@ -75,85 +74,33 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
                     // interest...................................
                     CustomContainers(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Interests:',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          SizedBox(height: 20),
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: profile.interests
-                                .map(
-                                  (e) => CustomProfilechip(
-                                    darkcolor: AppColors.intertestChipdark,
-                                    lightColor: AppColors.intertestChiplight,
-                                    label: e,
-                                    textColor: AppColors.interestLabel,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ],
-                      ),
+                      darkcolor: AppColors.intertestChipdark,
+                      lightColor: AppColors.intertestChiplight,
+                      textColor: AppColors.interestLabel,
+                      text: 'Interests:',
+                      items: profile.interests,
                     ),
+
                     SizedBox(height: 20),
 
                     // skills...................................
                     CustomContainers(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Skills I Can Share:',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          SizedBox(height: 20),
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: profile.skillsHave
-                                .map(
-                                  (e) => CustomProfilechip(
-                                    darkcolor: AppColors.skillChipdark,
-                                    lightColor: AppColors.skillChiplight,
-                                    label: e,
-                                    textColor: AppColors.skillLabel,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ],
-                      ),
+                      darkcolor: AppColors.skillChipdark,
+                      lightColor: AppColors.skillChiplight,
+                      textColor: AppColors.skillLabel,
+                      text: 'Skills I Can Share:',
+                      items: profile.skillsHave,
                     ),
+
                     SizedBox(height: 20),
 
                     // learning...................................
                     CustomContainers(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Skill I Want to Learn:',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          SizedBox(height: 20),
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: profile.skillsLearn
-                                .map(
-                                  (e) => CustomProfilechip(
-                                    darkcolor: AppColors.learnChipdark,
-                                    lightColor: AppColors.learnChiplight,
-                                    label: e,
-                                    textColor: AppColors.learnLabel,
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ],
-                      ),
+                      darkcolor: AppColors.learnChipdark,
+                      lightColor: AppColors.learnChiplight,
+                      textColor: AppColors.learnLabel,
+                      text: 'Skill I Want to Learn:',
+                      items: profile.skillsLearn,
                     ),
                   ],
                 ),

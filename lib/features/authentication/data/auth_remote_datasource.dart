@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conet_app/features/authentication/data/model/user_model.dart';
+import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRemoteDatasource {

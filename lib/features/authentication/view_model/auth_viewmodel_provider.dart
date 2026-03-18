@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conet_app/features/authentication/data/datasource/auth_remote_datasource.dart';
-import 'package:conet_app/features/authentication/data/model/user_model.dart';
+import 'package:conet_app/features/authentication/data/auth_remote_datasource.dart';
+import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
