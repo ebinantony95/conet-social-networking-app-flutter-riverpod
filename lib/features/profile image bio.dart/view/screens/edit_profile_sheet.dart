@@ -18,6 +18,27 @@ class _EditProfileSheetState extends ConsumerState<EditProfileSheet> {
   String selectedAvatar = "";
 
   final avatars = [
+    'assets/avatars/a1.png',
+    'assets/avatars/a2.png',
+    'assets/avatars/a3.png',
+    'assets/avatars/a4.png',
+    'assets/avatars/a5.png',
+    'assets/avatars/a6.png',
+    'assets/avatars/a7.png',
+    'assets/avatars/a8.png',
+    'assets/avatars/a9.png',
+    'assets/avatars/a10.png',
+    'assets/avatars/a11.png',
+    'assets/avatars/a12.png',
+    'assets/avatars/a13.png',
+    'assets/avatars/a14.png',
+    'assets/avatars/a15.png',
+    'assets/avatars/a16.png',
+    'assets/avatars/a17.png',
+    'assets/avatars/a18.png',
+    'assets/avatars/a19.png',
+    'assets/avatars/a20.png',
+
     'assets/avatars/carlo.png',
     'assets/avatars/emma.png',
     'assets/avatars/hazel.png',

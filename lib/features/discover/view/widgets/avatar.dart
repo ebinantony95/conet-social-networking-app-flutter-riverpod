@@ -18,7 +18,6 @@ class Avatar extends StatelessWidget {
       decoration: BoxDecoration(
         color: dark ? AppColors.containerDark : AppColors.containerLight,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey),
       ),
       child: Image(
         image: user.avatar.isNotEmpty

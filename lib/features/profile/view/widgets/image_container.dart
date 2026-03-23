@@ -17,25 +17,30 @@ class ImageContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: dark ? AppColors.dark : AppColors.bright,
         borderRadius: BorderRadius.circular(50),
-        border: Border.all(color: Colors.grey),
       ),
       child: Stack(
         children: [
           /// Avatar
           Positioned(
-            left: 10,
+            top: 20,
+            bottom: 20,
             right: 10,
-            bottom: 10,
-            top: 10,
-            child: Image.asset(profile.avatar),
+            left: 10,
+            child: Image.asset(profile.avatar, fit: BoxFit.cover),
           ),
 
           /// Edit button
           Positioned(
-            right: 0,
             bottom: 0,
+            right: 0,
+            left: 0,
+            top: 0,
             child: IconButton(
-              icon: const Icon(Icons.edit),
+              icon: const Icon(
+                size: 150,
+                Icons.mode_standby_outlined,
+                color: Colors.transparent,
+              ),
               onPressed: () {
                 showModalBottomSheet(
                   context: context,

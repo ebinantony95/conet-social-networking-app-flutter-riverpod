@@ -9,11 +9,11 @@ class ConnectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 30,
+      width: 110,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-          colors: [AppColors.gradientColor1, AppColors.gradientColor2],
-        ),
+
+        color: AppColors.gradientColor2,
       ),
       child: SizedBox(
         width: double.infinity,
