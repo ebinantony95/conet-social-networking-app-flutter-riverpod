@@ -5,7 +5,6 @@ import 'package:conet_app/features/authentication/view/screens/create_account.da
 import 'package:conet_app/features/authentication/view/screens/login.dart';
 import 'package:conet_app/features/friends%20match/view/screens/firends_page.dart';
 import 'package:conet_app/features/landing_page/landing_page.dart';
-import 'package:conet_app/features/discover/view/screens/discover_page.dart';
 import 'package:conet_app/features/home/home_page.dart';
 import 'package:conet_app/features/landing_page/landing_provider.dart';
 import 'package:conet_app/features/match%20success/match_success_screen.dart';
@@ -151,9 +150,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/match-success',
         name: 'match-success',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final user = state.extra as UserModel;
-          return MatchSuccessPage(user: user);
+
+          return CustomTransitionPage(
+            child: MatchSuccessPage(user: user),
+            transitionsBuilder: (context, animation, secAnimation, child) {
+              return FadeTransition(opacity: animation, child: child);
+            },
+          );
         },
       ),
 
@@ -167,12 +172,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: 'home',
             builder: (context, state) => HomePage(),
           ),
-          // discover......
-          GoRoute(
-            path: '/discover',
-            name: 'discover',
-            builder: (context, state) => DiscoverPage(),
-          ),
+
           //match......
           GoRoute(
             path: '/match',

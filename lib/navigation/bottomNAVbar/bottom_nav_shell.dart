@@ -9,10 +9,9 @@ class BottomNavshell extends ConsumerWidget {
   const BottomNavshell({super.key, required this.child});
 
   int _getIndex(String location) {
-    if (location.startsWith('/discover')) return 1;
-    if (location.startsWith('/match')) return 2;
-    if (location.startsWith('/friends')) return 3;
-    if (location.startsWith('/profile')) return 4;
+    if (location.startsWith('/match')) return 1;
+    if (location.startsWith('/friends')) return 2;
+    if (location.startsWith('/profile')) return 3;
 
     return 0;
   }
@@ -23,16 +22,14 @@ class BottomNavshell extends ConsumerWidget {
       case 0:
         context.go('/home');
         break;
+
       case 1:
-        context.go('/discover');
-        break;
-      case 2:
         context.go('/match');
         break;
-      case 3:
+      case 2:
         context.go('/friends');
         break;
-      case 4:
+      case 3:
         context.go('/profile/$uid');
         break;
     }
@@ -64,11 +61,6 @@ class BottomNavshell extends ConsumerWidget {
                 icon: Icon(Icons.home_outlined),
                 activeIcon: Icon(Icons.home),
                 label: 'Home',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.find_replace_sharp),
-                activeIcon: Icon(Icons.find_replace_sharp),
-                label: 'Discover',
               ),
 
               BottomNavigationBarItem(
