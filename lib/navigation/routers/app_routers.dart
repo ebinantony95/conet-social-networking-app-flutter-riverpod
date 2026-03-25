@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:conet_app/features/authentication/view/provider/auth_state_provider.dart';
 import 'package:conet_app/features/authentication/view/screens/create_account.dart';
 import 'package:conet_app/features/authentication/view/screens/login.dart';
+import 'package:conet_app/features/friends%20match/view/screens/firends_page.dart';
 import 'package:conet_app/features/landing_page/landing_page.dart';
 import 'package:conet_app/features/discover/view/screens/discover_page.dart';
 import 'package:conet_app/features/home/home_page.dart';
 import 'package:conet_app/features/landing_page/landing_provider.dart';
-import 'package:conet_app/features/match/match_page.dart';
+import 'package:conet_app/features/match%20success/match_success_screen.dart';
+import 'package:conet_app/features/match/view/screens/match_page.dart';
 import 'package:conet_app/features/onboarding/view/screens/interest_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/learning_screen.dart';
 import 'package:conet_app/features/onboarding/view/screens/skill_screen.dart';
 import 'package:conet_app/features/profile/view/screens/profile_page.dart';
-import 'package:conet_app/features/request/request_page.dart';
 import 'package:conet_app/navigation/bottomNAVbar/bottom_nav_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -146,6 +148,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
 
+      GoRoute(
+        path: '/match-success',
+        name: 'match-success',
+        builder: (context, state) {
+          final user = state.extra as UserModel;
+          return MatchSuccessPage(user: user);
+        },
+      ),
+
       // main app with Bottom NAV bar
       ShellRoute(
         builder: (context, state, child) => BottomNavshell(child: child),
@@ -168,11 +179,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: 'match',
             builder: (context, state) => MatchPage(),
           ),
-          //requests...
+          //friends...
           GoRoute(
-            path: '/request',
-            name: 'request',
-            builder: (context, state) => RequestPage(),
+            path: '/friends',
+            name: 'friends',
+            builder: (context, state) => FriendsPage(),
           ),
           //profile...
           GoRoute(

@@ -49,6 +49,26 @@ class AuthRemoteDatasource {
   Future<void> logout() async {
     await _auth.signOut();
   }
+
+  // to get current user
+  Future<UserModel?> getCurrentUser() async {
+    try {
+      final firebaseUser = _auth.currentUser;
+
+      if (firebaseUser == null) return null;
+
+      final doc = await _firestore
+          .collection("users")
+          .doc(firebaseUser.uid)
+          .get();
+
+      if (!doc.exists) return null;
+
+      return UserModel.fromMap(doc.data()!);
+    } catch (e) {
+      throw Exception("Failed to fetch current user");
+    }
+  }
 }
 
 /// AUTH ERROR HANDLER

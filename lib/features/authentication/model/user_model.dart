@@ -4,15 +4,21 @@ class UserModel {
   final String uid;
   final String email;
   final String name;
+  final String bio;
+  final String avatar;
+
   final List<String> interests;
   final List<String> skills;
   final List<String> learning;
+
   final Timestamp createdAt;
 
   UserModel({
     required this.uid,
     required this.email,
     required this.name,
+    required this.bio,
+    required this.avatar,
     required this.interests,
     required this.skills,
     required this.learning,
@@ -25,6 +31,8 @@ class UserModel {
       "uid": uid,
       "name": name,
       "email": email,
+      "bio": bio,
+      "avatar": avatar,
       "interests": interests,
       "skills": skills,
       "learning": learning,
@@ -38,6 +46,8 @@ class UserModel {
       uid: map['uid'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
+      bio: map['bio'] ?? 'Tell people about yourself...',
+      avatar: map['avatar'] ?? 'assets/avatars/default.png',
       interests: List<String>.from(map['interests'] ?? []),
       skills: List<String>.from(map['skills'] ?? []),
       learning: List<String>.from(map['learning'] ?? []),
@@ -50,6 +60,8 @@ class UserModel {
     String? uid,
     String? name,
     String? email,
+    String? bio,
+    String? avatar,
     List<String>? interests,
     List<String>? skills,
     List<String>? learning,
@@ -59,6 +71,8 @@ class UserModel {
       uid: uid ?? this.uid,
       name: name ?? this.name,
       email: email ?? this.email,
+      bio: bio ?? this.bio,
+      avatar: avatar ?? this.avatar,
       interests: interests ?? this.interests,
       skills: skills ?? this.skills,
       learning: learning ?? this.learning,

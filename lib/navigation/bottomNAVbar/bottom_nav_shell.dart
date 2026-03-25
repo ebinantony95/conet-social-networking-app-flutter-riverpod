@@ -11,7 +11,7 @@ class BottomNavshell extends ConsumerWidget {
   int _getIndex(String location) {
     if (location.startsWith('/discover')) return 1;
     if (location.startsWith('/match')) return 2;
-    if (location.startsWith('/request')) return 3;
+    if (location.startsWith('/friends')) return 3;
     if (location.startsWith('/profile')) return 4;
 
     return 0;
@@ -30,7 +30,7 @@ class BottomNavshell extends ConsumerWidget {
         context.go('/match');
         break;
       case 3:
-        context.go('/request');
+        context.go('/friends');
         break;
       case 4:
         context.go('/profile/$uid');
@@ -79,7 +79,7 @@ class BottomNavshell extends ConsumerWidget {
               BottomNavigationBarItem(
                 icon: Icon(Icons.compare_arrows_sharp),
                 activeIcon: Icon(Icons.compare_arrows_sharp),
-                label: 'Request',
+                label: 'Friends',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
