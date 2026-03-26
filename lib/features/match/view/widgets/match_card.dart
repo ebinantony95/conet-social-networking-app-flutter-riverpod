@@ -1,4 +1,6 @@
 import 'package:conet_app/features/authentication/model/user_model.dart';
+import 'package:conet_app/util/constant/colors.dart';
+import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 
 class MatchCard extends StatelessWidget {
@@ -8,62 +10,90 @@ class MatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.05)),
-        ],
-      ),
-      child: Column(
-        children: [
-          /// GRADIENT HEADER
-          Container(
-            height: 200,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-              gradient: LinearGradient(
-                colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
+    final dark = AppHelpers.isDarkMode(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: dark ? AppColors.containerDark : AppColors.containerLight,
+            boxShadow: [
+              BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.05)),
+            ],
+          ),
+          child: Column(
+            children: [
+              /// GRADIENT HEADER
+              Container(
+                height: 200,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
+                  ),
+                ),
+                child: Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage(user.avatar),
+                  ),
+                ),
               ),
-            ),
-            child: Center(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage(user.avatar),
+
+              const SizedBox(height: 16),
+
+              Text(
+                user.name,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-            ),
+
+              const SizedBox(height: 8),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  user.bio,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              _section(
+                "Skills I can share",
+                user.skills,
+                dark ? AppColors.skillChipdark : AppColors.skillChiplight,
+                AppColors.skillLabel,
+              ),
+              _section(
+                "Skill I want to learn",
+                user.learning,
+                dark ? AppColors.learnChipdark : AppColors.learnChiplight,
+                AppColors.learnLabel,
+              ),
+              _section(
+                "Interested in",
+                user.interests,
+                dark
+                    ? AppColors.intertestChipdark
+                    : AppColors.intertestChiplight,
+                AppColors.interestLabel,
+              ),
+            ],
           ),
-
-          const SizedBox(height: 16),
-
-          Text(
-            user.name,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-
-          const SizedBox(height: 8),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              user.bio,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.grey),
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          _section("SKILLS", user.skills, Colors.pink.shade100),
-          _section("LEARNING", user.learning, Colors.purple.shade100),
-          _section("INTERESTS", user.interests, Colors.orange.shade100),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _section(String title, List<String> items, Color color) {
+  Widget _section(
+    String title,
+    List<String> items,
+    Color color,
+    Color textColor,
+  ) {
+    final limitedItem = items.take(3).toList();
     return Column(
       children: [
         Text(
@@ -76,8 +106,13 @@ class MatchCard extends StatelessWidget {
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
-          children: items
-              .map((e) => Chip(label: Text(e), backgroundColor: color))
+          children: limitedItem
+              .map(
+                (e) => Chip(
+                  label: Text(e, style: TextStyle(color: textColor)),
+                  backgroundColor: color,
+                ),
+              )
               .toList(),
         ),
         const SizedBox(height: 16),
