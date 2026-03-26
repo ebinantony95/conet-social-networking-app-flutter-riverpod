@@ -10,7 +10,6 @@ class MatchSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF7F7),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,9 +28,9 @@ class MatchSuccessPage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            const Text(
+            Text(
               "It's a Match! 🎉",
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
 
             const SizedBox(height: 10),

@@ -34,22 +34,38 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
       return const Scaffold(body: Center(child: Text("No friends yet")));
     }
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Friends")),
-      body: ListView.builder(
-        itemCount: friends.length,
-        itemBuilder: (_, i) {
-          final user = friends[i];
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: const Text("Friends")),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView.builder(
+            itemCount: friends.length,
+            itemBuilder: (_, i) {
+              final user = friends[i];
 
-          return ListTile(
-            leading: CircleAvatar(backgroundImage: AssetImage(user.avatar)),
-            title: Text(user.name),
-            subtitle: Text(user.bio),
-            onTap: () {
-              // 👉 open chat later
+              return Column(
+                children: [
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage(user.avatar),
+                    ),
+                    title: Text(
+                      user.name,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Text(user.bio),
+                    onTap: () {
+                      // 👉 open chat later
+                    },
+                  ),
+                  SizedBox(height: 10),
+                ],
+              );
             },
-          );
-        },
+          ),
+        ),
       ),
     );
   }
