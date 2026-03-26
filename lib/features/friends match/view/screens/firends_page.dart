@@ -55,7 +55,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                       user.name,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    subtitle: Text(user.bio),
+                    subtitle: Text(user.bio), //change with recent chats...
                     onTap: () {
                       // 👉 open chat later
                     },
