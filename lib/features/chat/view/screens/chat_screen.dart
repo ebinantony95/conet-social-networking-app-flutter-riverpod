@@ -41,7 +41,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
     controller.clear();
 
-    // 🔥 auto scroll to bottom
+    // auto scroll to bottom
     Future.delayed(const Duration(milliseconds: 100), () {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,
@@ -55,10 +55,36 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   Widget build(BuildContext context) {
     final viewModel = ref.read(chatViewModelProvider.notifier);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text("Chat")),
-        body: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        title: StreamBuilder(
+          stream: viewModel.getChat(widget.chatId),
+          builder: (context, chatSnapshot) {
+            if (!chatSnapshot.hasData) {
+              return const Text("Loading...");
+            }
+
+            final chat = chatSnapshot.data!;
+            final otherUserId = chat.participants.firstWhere(
+              (id) => id != widget.currentUserId,
+            );
+
+            return StreamBuilder(
+              stream: viewModel.getUser(otherUserId),
+              builder: (context, userSnapshot) {
+                if (!userSnapshot.hasData) {
+                  return const Text("Loading...");
+                }
+
+                final user = userSnapshot.data!;
+                return Text(user.name);
+              },
+            );
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [

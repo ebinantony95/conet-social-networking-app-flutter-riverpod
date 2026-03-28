@@ -25,4 +25,8 @@ class AppColors {
   static const Color learnChiplight = Color(0xffEFE7FD);
   static const Color learnChipdark = Color(0xff2A203E);
   static const Color learnLabel = Color(0xff7F47D9);
+
+  //post
+  static const Color postGr = Color(0xff00E1A9);
+  static const Color postGr2 = Color(0xff01B0F3);
 }

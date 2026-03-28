@@ -1,3 +1,5 @@
+import 'package:conet_app/features/authentication/model/user_model.dart';
+import 'package:conet_app/features/chat/model/chat_model.dart';
 import 'package:conet_app/features/chat/model/message_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -42,5 +44,13 @@ class ChatViewModel extends StateNotifier<AsyncValue<void>> {
 
   Stream<List<MessageModel>> getMessages(String chatId) {
     return ref.read(chatDatasourceProvider).getMessages(chatId);
+  }
+
+  Stream<ChatModel> getChat(String chatId) {
+    return ref.read(chatDatasourceProvider).getChat(chatId);
+  }
+
+  Stream<UserModel> getUser(String uid) {
+    return ref.read(chatDatasourceProvider).getUser(uid);
   }
 }

@@ -50,7 +50,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
 
         body: chatsAsync.when(
           data: (chats) {
-            /// 🔥 SAFE CHAT MAP (no crash)
+            /// SAFE CHAT MAP
             final chatMap = {
               for (var chat in chats)
                 chat.participants.firstWhere(
@@ -59,7 +59,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                 ): chat,
             };
 
-            /// 🔥 COPY + SORT (NO STATE MUTATION)
+            ///  COPY + SORT (
             final sortedFriends = [...friends];
 
             sortedFriends.sort((a, b) {
@@ -88,7 +88,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                   ),
                 ),
 
-                /// 🔥 LIST
+                ///  LIST
                 Expanded(
                   child: ListView.builder(
                     itemCount: sortedFriends.length,
@@ -104,19 +104,19 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                               vertical: 6,
                             ),
 
-                            /// 🔥 PROFILE
+                            ///  PROFILE
                             leading: CircleAvatar(
                               radius: 28,
                               backgroundImage: AssetImage(user.avatar),
                             ),
 
-                            /// 🔥 NAME
+                            ///  NAME
                             title: Text(
                               user.name,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
 
-                            /// 🔥 LAST MESSAGE / FALLBACK
+                            /// LAST MESSAGE / FALLBACK
                             subtitle: Text(
                               chat?.lastMessage.isNotEmpty == true
                                   ? chat!.lastMessage
@@ -125,7 +125,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                               overflow: TextOverflow.ellipsis,
                             ),
 
-                            /// 🔥 TIME + DOT
+                            ///  TIME + DOT
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -135,7 +135,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                                 ),
                                 const SizedBox(height: 6),
 
-                                /// 🔥 UNREAD INDICATOR (basic)
+                                ///  UNREAD INDICATOR (basic)
                                 if (chat != null)
                                   Container(
                                     width: 8,
@@ -148,7 +148,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                               ],
                             ),
 
-                            /// 🔥 OPEN CHAT
+                            ///  OPEN CHAT
                             onTap: () async {
                               final chatDatasource = ref.read(
                                 chatDatasourceProvider,

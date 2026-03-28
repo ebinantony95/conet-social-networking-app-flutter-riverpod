@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:conet_app/features/chat/model/chat_model.dart';
 import 'package:conet_app/features/chat/model/message_model.dart';
 
@@ -61,5 +62,21 @@ class ChatRemoteDatasource {
             return ChatModel.fromMap(doc.id, doc.data());
           }).toList();
         });
+  }
+
+  Stream<ChatModel> getChat(String chatId) {
+    return _firestore
+        .collection('chats')
+        .doc(chatId)
+        .snapshots()
+        .map((doc) => ChatModel.fromMap(doc.id, doc.data()!));
+  }
+
+  Stream<UserModel> getUser(String uid) {
+    return _firestore
+        .collection('users')
+        .doc(uid)
+        .snapshots()
+        .map((doc) => UserModel.fromMap(doc.data()!));
   }
 }

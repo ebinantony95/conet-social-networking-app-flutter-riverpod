@@ -1,5 +1,7 @@
+import 'package:conet_app/features/post/view/widgets/post_dialog.dart';
 import 'package:conet_app/features/profile/view/widgets/custom_containers.dart';
 import 'package:conet_app/features/profile/view/widgets/image_container.dart';
+import 'package:conet_app/features/post/post_button.dart';
 import 'package:conet_app/features/profile/view_model/profile_view_model.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +74,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     ),
                     const SizedBox(height: 50),
 
+                    SizedBox(height: 20),
                     // interest...................................
                     CustomContainers(
                       darkcolor: AppColors.intertestChipdark,
@@ -109,6 +112,23 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           );
         },
       ),
+      //post.....
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          openCreatePostDialog(context);
+        },
+        child: PostButton(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+}
+
+//dialog.....
+void openCreatePostDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (_) => const CreatePostDialog(),
+  );
 }
