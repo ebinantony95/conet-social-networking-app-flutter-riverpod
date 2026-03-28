@@ -82,7 +82,7 @@ class HomePage extends ConsumerWidget {
                             count == 1
                                 ? "1 Friend"
                                 : "You gained $count matches",
-                            style: Theme.of(context).textTheme.titleLarge!
+                            style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

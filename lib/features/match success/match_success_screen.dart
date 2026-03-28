@@ -1,5 +1,7 @@
 import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:conet_app/features/chat/data/chat_remote_datasource.dart';
+import 'package:conet_app/util/constant/colors.dart';
+import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +17,7 @@ class MatchSuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = AppHelpers.isDarkMode(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -25,8 +28,10 @@ class MatchSuccessPage extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
+                gradient: LinearGradient(
+                  colors: dark
+                      ? [AppColors.homeGr2bl, AppColors.homeGr3bl]
+                      : [AppColors.gradientColor1, AppColors.gradientColor2],
                 ),
               ),
               child: const Icon(Icons.favorite, color: Colors.white, size: 40),
@@ -65,8 +70,10 @@ class MatchSuccessPage extends StatelessWidget {
                 const SizedBox(width: 10),
                 _btn(
                   "Chat",
-                  const LinearGradient(
-                    colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
+                  LinearGradient(
+                    colors: dark
+                        ? [AppColors.homeGr2bl, AppColors.homeGr3bl]
+                        : [AppColors.gradientColor1, AppColors.gradientColor2],
                   ),
                   () async {
                     final chatDatasource = ChatRemoteDatasource();

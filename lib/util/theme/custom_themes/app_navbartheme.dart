@@ -15,7 +15,7 @@ class AppNavbartheme {
   /// Dark theme navbar
   static BottomNavigationBarThemeData dark = BottomNavigationBarThemeData(
     backgroundColor: const Color(0xFF0E0E0E),
-    selectedItemColor: AppColors.gradientColor1,
+    selectedItemColor: AppColors.homeGr3bl,
     unselectedItemColor: Colors.grey,
     selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
     unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),

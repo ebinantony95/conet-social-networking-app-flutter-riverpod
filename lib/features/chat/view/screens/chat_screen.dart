@@ -1,4 +1,5 @@
 import 'package:conet_app/features/chat/view%20model/chat_view_model.dart';
+import 'package:conet_app/util/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -116,7 +117,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             ),
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: isMe ? Colors.blue : Colors.grey[300],
+                              gradient: LinearGradient(
+                                colors: isMe
+                                    ? [
+                                        AppColors.gradientColor1,
+                                        AppColors.gradientColor2,
+                                      ]
+                                    : [AppColors.homeGr3, AppColors.homeGr2bl],
+                              ),
+
                               borderRadius: BorderRadius.only(
                                 topLeft: const Radius.circular(12),
                                 topRight: const Radius.circular(12),
@@ -127,7 +136,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             child: Text(
                               msg.text,
                               style: TextStyle(
-                                color: isMe ? Colors.white : Colors.black,
+                                color: isMe ? Colors.white : Colors.white,
                               ),
                             ),
                           ),

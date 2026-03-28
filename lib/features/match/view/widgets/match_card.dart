@@ -26,14 +26,17 @@ class MatchCard extends StatelessWidget {
               /// GRADIENT HEADER
               Container(
                 height: 200,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                   gradient: LinearGradient(
-                    colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
+                    colors: dark
+                        ? [AppColors.homeGr1bl, AppColors.homeGr2bl]
+                        : [AppColors.gradientColor1, AppColors.gradientColor2],
                   ),
                 ),
                 child: Center(
                   child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
                     radius: 50,
                     backgroundImage: AssetImage(user.avatar),
                   ),

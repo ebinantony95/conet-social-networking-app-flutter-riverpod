@@ -1,5 +1,6 @@
 import 'package:conet_app/common/custom_icon_buttton.dart';
 import 'package:conet_app/features/authentication/view_model/auth_viewmodel_provider.dart';
+import 'package:conet_app/features/toggle%20dark-bright/theme_provider.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:conet_app/util/constant/images.dart';
 import 'package:conet_app/util/helpers/helpers.dart';
@@ -24,7 +25,7 @@ class HomeAppBar extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            /// 🔹 Logo
+            ///  Logo
             Row(
               children: [
                 SizedBox(
@@ -36,13 +37,13 @@ class HomeAppBar extends ConsumerWidget {
               ],
             ),
 
-            /// 🔹 Right Icons
+            ///  Right Icons
             Row(
               children: [
                 CustomIconButtton(
                   icon: dark ? Icons.sunny : Icons.dark_mode,
                   onTap: () {
-                    // TODO: Toggle theme
+                    ref.read(themeProvider.notifier).toggleTheme();
                   },
                   iconColor: dark ? Colors.white : Colors.black,
                   containerColor: dark

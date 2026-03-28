@@ -12,7 +12,7 @@ class AppColors {
 
   // profile
   static const Color containerLight = Color(0xffFEFFFF);
-  static const Color containerDark = Color(0xff1B1A25);
+  static const Color containerDark = Color(0xff111018);
 
   static const Color intertestChiplight = Color(0xffFFF3DF);
   static const Color intertestChipdark = Color(0xff483011);

@@ -77,7 +77,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                     // my posts..
                     MyPostSession(userId: widget.uid),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
                     // interest...................................
                     CustomContainers(
                       darkcolor: AppColors.intertestChipdark,

@@ -12,8 +12,8 @@ class PostButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.postGr.withValues(alpha: .3),
-            AppColors.postGr2.withValues(alpha: .3),
+            AppColors.postGr.withValues(alpha: .5),
+            AppColors.postGr2.withValues(alpha: .5),
           ],
         ),
 
