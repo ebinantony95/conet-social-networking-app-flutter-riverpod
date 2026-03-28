@@ -34,14 +34,14 @@ class PostViewModel extends StateNotifier<AsyncValue<List<PostModel>>> {
   Future<void> createPost({
     required String userId,
     required String userName,
-    required String userAvatar,
+    required String avatar,
     required String content,
   }) async {
     try {
       await _firestore.collection('posts').add({
         'userId': userId,
         'userName': userName,
-        'userAvatar': userAvatar,
+        'avatar': avatar,
         'content': content,
         'createdAt': Timestamp.now(),
         'likesCount': 0,
@@ -80,5 +80,14 @@ class PostViewModel extends StateNotifier<AsyncValue<List<PostModel>>> {
   /// 🔹 DELETE POST (optional but useful)
   Future<void> deletePost(String postId) async {
     await _firestore.collection('posts').doc(postId).delete();
+  }
+
+  //  TO GET THE NO OF MATCHES
+  Stream<int> getMatchCount(String userId) {
+    return _firestore
+        .collection('matches')
+        .where('users', arrayContains: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
   }
 }

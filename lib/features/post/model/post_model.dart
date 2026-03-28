@@ -4,7 +4,7 @@ class PostModel {
   final String id;
   final String userId;
   final String userName;
-  final String userAvatar;
+  final String avatar;
   final String content;
   final Timestamp createdAt;
   final int likesCount;
@@ -13,7 +13,7 @@ class PostModel {
     required this.id,
     required this.userId,
     required this.userName,
-    required this.userAvatar,
+    required this.avatar,
     required this.content,
     required this.createdAt,
     required this.likesCount,
@@ -24,7 +24,7 @@ class PostModel {
       id: docId,
       userId: map['userId'] ?? '',
       userName: map['userName'] ?? '',
-      userAvatar: map['userAvatar'] ?? '',
+      avatar: map['avatar'] ?? 'assets/avatars/default_image.png',
       content: map['content'] ?? '',
       createdAt: map['createdAt'] ?? Timestamp.now(),
       likesCount: map['likesCount'] ?? 0,
@@ -35,7 +35,7 @@ class PostModel {
     return {
       'userId': userId,
       'userName': userName,
-      'userAvatar': userAvatar,
+      'avatar': avatar,
       'content': content,
       'createdAt': createdAt,
       'likesCount': likesCount,

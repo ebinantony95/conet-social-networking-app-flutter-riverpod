@@ -108,6 +108,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       text: 'Skill I Want to Learn:',
                       items: profile.skillsLearn,
                     ),
+
+                    SizedBox(height: 100),
                   ],
                 ),
               ),

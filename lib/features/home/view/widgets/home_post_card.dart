@@ -1,5 +1,6 @@
 import 'package:conet_app/features/post/model/post_model.dart';
 import 'package:conet_app/features/post/view%20model/post_view_model.dart';
+import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,22 +11,28 @@ class PostCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final dark = AppHelpers.isDarkMode(context);
     final date = post.createdAt?.toDate() ?? DateTime.now();
 
     return Container(
       margin: const EdgeInsets.all(12),
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.green.shade200,
-        borderRadius: BorderRadius.circular(20),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 👤 HEADER
+          /// HEADER
           Row(
             children: [
-              CircleAvatar(backgroundImage: NetworkImage(post.userAvatar)),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.grey.shade300,
+                backgroundImage: AssetImage(
+                  (post.avatar.isNotEmpty)
+                      ? post.avatar
+                      : 'assets/avatars/default_image.png',
+                ),
+              ),
               const SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,12 +52,32 @@ class PostCard extends ConsumerWidget {
 
           const SizedBox(height: 10),
 
-          /// ✍️ CONTENT
-          Text(post.content),
+          /// CONTENT
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: dark ? Colors.white : Colors.black,
+                width: 2,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Text(
+              post.content,
+              style: const TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ),
 
           const SizedBox(height: 10),
 
-          /// ❤️ LIKE BUTTON
+          /// LIKE BUTTON
           Row(
             children: [
               IconButton(

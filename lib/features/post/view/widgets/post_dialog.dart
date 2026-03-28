@@ -36,7 +36,7 @@ class _CreatePostDialogState extends ConsumerState<CreatePostDialog> {
           .createPost(
             userId: user.uid,
             userName: user.name,
-            userAvatar: user.avatar,
+            avatar: user.avatar,
             content: text,
           );
 

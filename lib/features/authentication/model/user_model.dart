@@ -6,7 +6,6 @@ class UserModel {
   final String name;
   final String bio;
   final String avatar;
-
   final List<String> interests;
   final List<String> skills;
   final List<String> learning;

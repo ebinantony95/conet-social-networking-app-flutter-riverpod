@@ -6,7 +6,7 @@ import 'package:conet_app/features/authentication/view/screens/login.dart';
 import 'package:conet_app/features/chat/view/screens/chat_screen.dart';
 import 'package:conet_app/features/friends%20match/view/screens/firends_page.dart';
 import 'package:conet_app/features/landing_page/landing_page.dart';
-import 'package:conet_app/features/home/home_page.dart';
+import 'package:conet_app/features/home/view/screens/home_page.dart';
 import 'package:conet_app/features/landing_page/landing_provider.dart';
 import 'package:conet_app/features/match%20success/match_success_screen.dart';
 import 'package:conet_app/features/match/view/screens/match_page.dart';
