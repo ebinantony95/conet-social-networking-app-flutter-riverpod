@@ -1,11 +1,17 @@
 import 'package:conet_app/features/authentication/model/user_model.dart';
+import 'package:conet_app/features/chat/data/chat_remote_datasource.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MatchSuccessPage extends StatelessWidget {
   final UserModel user;
+  final String currentUserId;
 
-  const MatchSuccessPage({super.key, required this.user});
+  const MatchSuccessPage({
+    super.key,
+    required this.user,
+    required this.currentUserId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +68,19 @@ class MatchSuccessPage extends StatelessWidget {
                   const LinearGradient(
                     colors: [Color(0xFFE94057), Color(0xFF8A3AB9)],
                   ),
-                  () {
+                  () async {
+                    final chatDatasource = ChatRemoteDatasource();
+
+                    final chatId = chatDatasource.getChatId(
+                      currentUserId,
+                      user.uid,
+                    );
+
+                    await chatDatasource.createChat(currentUserId, user.uid);
+
                     context.pop(); // close match screen
-                    context.push('/chat'); // go to chat
+
+                    context.push('/friends');
                   },
                 ),
               ],

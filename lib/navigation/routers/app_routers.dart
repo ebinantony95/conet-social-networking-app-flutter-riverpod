@@ -3,6 +3,7 @@ import 'package:conet_app/features/authentication/model/user_model.dart';
 import 'package:conet_app/features/authentication/view/provider/auth_state_provider.dart';
 import 'package:conet_app/features/authentication/view/screens/create_account.dart';
 import 'package:conet_app/features/authentication/view/screens/login.dart';
+import 'package:conet_app/features/chat/view/screen/chat_screen.dart';
 import 'package:conet_app/features/friends%20match/view/screens/firends_page.dart';
 import 'package:conet_app/features/landing_page/landing_page.dart';
 import 'package:conet_app/features/home/home_page.dart';
@@ -154,10 +155,22 @@ final routerProvider = Provider<GoRouter>((ref) {
           final user = state.extra as UserModel;
 
           return CustomTransitionPage(
-            child: MatchSuccessPage(user: user),
+            child: MatchSuccessPage(user: user, currentUserId: user.uid),
             transitionsBuilder: (context, animation, secAnimation, child) {
               return FadeTransition(opacity: animation, child: child);
             },
+          );
+        },
+      ),
+
+      GoRoute(
+        path: '/chat',
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+
+          return ChatScreen(
+            chatId: data['chatId'],
+            currentUserId: data['currentUserId'],
           );
         },
       ),
