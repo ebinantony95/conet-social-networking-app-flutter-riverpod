@@ -1,7 +1,5 @@
 import 'package:conet_app/features/profile%20image%20bio.dart/view/screens/edit_profile_sheet.dart';
 import 'package:conet_app/features/profile/model/profile_model.dart';
-import 'package:conet_app/util/constant/colors.dart';
-import 'package:conet_app/util/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {
@@ -10,12 +8,11 @@ class ImageContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AppHelpers.isDarkMode(context);
     return Container(
       width: 180,
       height: 180,
       decoration: BoxDecoration(
-        color: dark ? AppColors.dark : AppColors.bright,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(50),
       ),
       child: Stack(

@@ -1,7 +1,8 @@
+import 'package:conet_app/features/my%20post%20session/my_post_session.dart';
 import 'package:conet_app/features/post/view/widgets/post_dialog.dart';
 import 'package:conet_app/features/profile/view/widgets/custom_containers.dart';
 import 'package:conet_app/features/profile/view/widgets/image_container.dart';
-import 'package:conet_app/features/post/post_button.dart';
+import 'package:conet_app/features/post/view/widgets/post_button.dart';
 import 'package:conet_app/features/profile/view_model/profile_view_model.dart';
 import 'package:conet_app/util/constant/colors.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 50),
+                    // my posts..
+                    MyPostSession(userId: widget.uid),
 
                     SizedBox(height: 20),
                     // interest...................................

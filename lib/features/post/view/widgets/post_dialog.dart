@@ -1,4 +1,4 @@
-import 'package:conet_app/features/post/model/view model/post_view_model.dart';
+import 'package:conet_app/features/post/view%20model/post_view_model.dart';
 import 'package:conet_app/features/post/view/provider/current_user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

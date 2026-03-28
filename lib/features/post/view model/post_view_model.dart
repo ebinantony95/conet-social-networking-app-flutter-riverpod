@@ -52,9 +52,33 @@ class PostViewModel extends StateNotifier<AsyncValue<List<PostModel>>> {
   }
 
   /// 🔹 LIKE POST
-  Future<void> likePost(String postId, int currentLikes) async {
-    await _firestore.collection('posts').doc(postId).update({
-      'likesCount': currentLikes + 1,
+  Future<void> likePost(String postId) async {
+    final ref = _firestore.collection('posts').doc(postId);
+
+    await _firestore.runTransaction((transaction) async {
+      final snap = await transaction.get(ref);
+      final currentLikes = snap['likesCount'] ?? 0;
+
+      transaction.update(ref, {'likesCount': currentLikes + 1});
     });
+  }
+
+  /// 🔹 GET USER POSTS (REALTIME)
+  Stream<List<PostModel>> getUserPosts(String userId) {
+    return _firestore
+        .collection('posts')
+        .where('userId', isEqualTo: userId)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs
+              .map((doc) => PostModel.fromMap(doc.data(), doc.id))
+              .toList();
+        });
+  }
+
+  /// 🔹 DELETE POST (optional but useful)
+  Future<void> deletePost(String postId) async {
+    await _firestore.collection('posts').doc(postId).delete();
   }
 }

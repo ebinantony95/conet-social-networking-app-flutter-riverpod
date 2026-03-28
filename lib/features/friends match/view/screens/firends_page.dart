@@ -46,7 +46,14 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text("Friends")),
+        appBar: AppBar(
+          title: Text(
+            "Friends",
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w900),
+          ),
+        ),
 
         body: chatsAsync.when(
           data: (chats) {
@@ -79,14 +86,14 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// 🔥 HEADER
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  child: Text(
-                    "Recent Chats",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
+                // ///  HEADER
+                // const Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                //   child: Text(
+                //     "Recent Chats",
+                //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                //   ),
+                // ),
 
                 ///  LIST
                 Expanded(

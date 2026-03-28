@@ -71,10 +71,10 @@ class MatchSuccessPage extends StatelessWidget {
                   () async {
                     final chatDatasource = ChatRemoteDatasource();
 
-                    final chatId = chatDatasource.getChatId(
-                      currentUserId,
-                      user.uid,
-                    );
+                    // final chatId = chatDatasource.getChatId(
+                    //   currentUserId,
+                    //   user.uid,
+                    // );
 
                     await chatDatasource.createChat(currentUserId, user.uid);
 

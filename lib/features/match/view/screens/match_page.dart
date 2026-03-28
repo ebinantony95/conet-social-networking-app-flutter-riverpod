@@ -54,7 +54,15 @@ class _MatchPageState extends ConsumerState<MatchPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Match"), centerTitle: true),
+      appBar: AppBar(
+        title: Text(
+          "Match",
+          style: Theme.of(
+            context,
+          ).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.w900),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -79,7 +87,7 @@ class _MatchPageState extends ConsumerState<MatchPage> {
                 return true;
               },
 
-              cardBuilder: (context, index, _, __) {
+              cardBuilder: (context, index, _, _) {
                 if (index >= users.length) return const SizedBox();
                 return MatchCard(user: users[index]);
               },
