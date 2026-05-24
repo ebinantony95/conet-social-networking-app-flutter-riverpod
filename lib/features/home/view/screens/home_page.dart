@@ -46,6 +46,7 @@ class HomePage extends ConsumerWidget {
                 ref.invalidate(matchCountProvider(userId));
               },
               child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 children: [
                   /// CUSTOM APP BAR
                   HomeAppBar(),

@@ -14,7 +14,7 @@ class MatchCard extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          height: 520,
+          height: 500,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: dark ? AppColors.containerDark : AppColors.containerLight,
@@ -22,70 +22,77 @@ class MatchCard extends StatelessWidget {
               BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(0.05)),
             ],
           ),
-          child: Column(
-            children: [
-              /// GRADIENT HEADER
-              Container(
-                height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  gradient: LinearGradient(
-                    colors: dark
-                        ? [AppColors.homeGr1bl, AppColors.homeGr2bl]
-                        : [AppColors.gradientColor1, AppColors.gradientColor2],
+          child: Center(
+            child: Column(
+              children: [
+                /// GRADIENT HEADER
+                Container(
+                  height: 130,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
+                    gradient: LinearGradient(
+                      colors: dark
+                          ? [AppColors.homeGr1bl, AppColors.homeGr2bl]
+                          : [
+                              AppColors.gradientColor1,
+                              AppColors.gradientColor2,
+                            ],
+                    ),
+                  ),
+                  child: Center(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                      backgroundImage: AssetImage(user.avatar),
+                    ),
                   ),
                 ),
-                child: Center(
-                  child: CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 40,
-                    backgroundImage: AssetImage(user.avatar),
+
+                const SizedBox(height: 16),
+
+                Text(
+                  user.name,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+
+                const SizedBox(height: 8),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    user.bio,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
-              Text(
-                user.name,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-
-              const SizedBox(height: 8),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  user.bio,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelLarge,
+                _section(
+                  "Skills I can share",
+                  user.skills,
+                  dark ? AppColors.skillChipdark : AppColors.skillChiplight,
+                  AppColors.skillLabel,
                 ),
-              ),
+                _section(
+                  "Skill I want to learn",
+                  user.learning,
+                  dark ? AppColors.learnChipdark : AppColors.learnChiplight,
+                  AppColors.learnLabel,
+                ),
 
-              const SizedBox(height: 20),
-
-              _section(
-                "Skills I can share",
-                user.skills,
-                dark ? AppColors.skillChipdark : AppColors.skillChiplight,
-                AppColors.skillLabel,
-              ),
-              _section(
-                "Skill I want to learn",
-                user.learning,
-                dark ? AppColors.learnChipdark : AppColors.learnChiplight,
-                AppColors.learnLabel,
-              ),
-
-              _section(
-                "Interested in",
-                user.interests,
-                dark
-                    ? AppColors.intertestChipdark
-                    : AppColors.intertestChiplight,
-                AppColors.interestLabel,
-              ),
-            ],
+                // _section(
+                //   "Interested in",
+                //   user.interests,
+                //   dark
+                //       ? AppColors.intertestChipdark
+                //       : AppColors.intertestChiplight,
+                //   AppColors.interestLabel,
+                // ),
+              ],
+            ),
           ),
         ),
       ),

@@ -70,9 +70,11 @@ class MyPostSession extends ConsumerWidget {
                     },
                     child: Container(
                       width: 260,
+
                       margin: const EdgeInsets.only(right: 12),
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
+                        border: Border.all(),
                         gradient: LinearGradient(
                           colors: [
                             AppColors.postGr.withValues(alpha: .3),

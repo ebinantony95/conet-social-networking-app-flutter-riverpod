@@ -106,6 +106,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
                       ref.invalidate(userChatsProvider(currentUserId!));
                     },
                     child: ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: sortedFriends.length,
                       itemBuilder: (_, i) {
                         final user = sortedFriends[i];
