@@ -40,104 +40,110 @@ class HomePage extends ConsumerWidget {
         return SafeArea(
           child: Scaffold(
             /// IMPORTANT: Use ListView instead of Column
-            body: ListView(
-              children: [
-                /// CUSTOM APP BAR
-                HomeAppBar(),
+            body: RefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(postViewModelProvider);
+                ref.invalidate(matchCountProvider(userId));
+              },
+              child: ListView(
+                children: [
+                  /// CUSTOM APP BAR
+                  HomeAppBar(),
 
-                /// FRIEND COUNT HEADER (SCROLLS NOW)
-                matchCount.when(
-                  data: (count) => Container(
-                    height: 80,
-                    margin: const EdgeInsets.all(16),
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: dark
-                            ? [
-                                AppColors.homeGr1bl,
-                                AppColors.homeGr2bl,
-                                AppColors.homeGr3bl,
-                              ]
-                            : [
-                                AppColors.homeGr1,
-                                AppColors.homeGr2,
-                                AppColors.homeGr3,
-                              ],
+                  /// FRIEND COUNT HEADER (SCROLLS NOW)
+                  matchCount.when(
+                    data: (count) => Container(
+                      height: 80,
+                      margin: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: dark
+                              ? [
+                                  AppColors.homeGr1bl,
+                                  AppColors.homeGr2bl,
+                                  AppColors.homeGr3bl,
+                                ]
+                              : [
+                                  AppColors.homeGr1,
+                                  AppColors.homeGr2,
+                                  AppColors.homeGr3,
+                                ],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.celebration,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        const SizedBox(width: 10),
-
-                        ///  prevent overflow
-                        Expanded(
-                          child: Text(
-                            count == 1
-                                ? "1 Friend"
-                                : "You gained $count matches",
-                            style: Theme.of(context).textTheme.titleMedium!
-                                .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.celebration,
+                            color: Colors.white,
+                            size: 30,
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 10),
+
+                          ///  prevent overflow
+                          Expanded(
+                            child: Text(
+                              count == 1
+                                  ? "1 Friend"
+                                  : "You gained $count matches",
+                              style: Theme.of(context).textTheme.titleMedium!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    /// 🔄 MATCH LOADING
+                    loading: () => const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+
+                    ///  MATCH ERROR
+                    error: (e, _) =>
+                        const Center(child: Text("Failed to load friends")),
+                  ),
+
+                  /// POSTS
+                  postsState.when(
+                    data: (posts) {
+                      if (posts.isEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Center(child: Text("No posts yet 🚀")),
+                        );
+                      }
+
+                      return ListView.builder(
+                        itemCount: posts.length,
+                        shrinkWrap: true, // IMPORTANT
+                        physics:
+                            const NeverScrollableScrollPhysics(), //  IMPORTANT
+                        itemBuilder: (context, index) {
+                          return PostCard(post: posts[index]);
+                        },
+                      );
+                    },
+
+                    /// POSTS LOADING
+                    loading: () => const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+
+                    ///  POSTS ERROR
+                    error: (e, _) => Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Center(child: Text(e.toString())),
                     ),
                   ),
-
-                  /// 🔄 MATCH LOADING
-                  loading: () => const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-
-                  ///  MATCH ERROR
-                  error: (e, _) =>
-                      const Center(child: Text("Failed to load friends")),
-                ),
-
-                /// POSTS
-                postsState.when(
-                  data: (posts) {
-                    if (posts.isEmpty) {
-                      return const Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Center(child: Text("No posts yet 🚀")),
-                      );
-                    }
-
-                    return ListView.builder(
-                      itemCount: posts.length,
-                      shrinkWrap: true, // IMPORTANT
-                      physics:
-                          const NeverScrollableScrollPhysics(), //  IMPORTANT
-                      itemBuilder: (context, index) {
-                        return PostCard(post: posts[index]);
-                      },
-                    );
-                  },
-
-                  /// POSTS LOADING
-                  loading: () => const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-
-                  ///  POSTS ERROR
-                  error: (e, _) => Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Center(child: Text(e.toString())),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

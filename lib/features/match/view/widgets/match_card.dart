@@ -14,6 +14,7 @@ class MatchCard extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          height: 520,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: dark ? AppColors.containerDark : AppColors.containerLight,
@@ -25,7 +26,7 @@ class MatchCard extends StatelessWidget {
             children: [
               /// GRADIENT HEADER
               Container(
-                height: 200,
+                height: 130,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                   gradient: LinearGradient(
@@ -37,7 +38,7 @@ class MatchCard extends StatelessWidget {
                 child: Center(
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    radius: 50,
+                    radius: 40,
                     backgroundImage: AssetImage(user.avatar),
                   ),
                 ),
@@ -75,6 +76,7 @@ class MatchCard extends StatelessWidget {
                 dark ? AppColors.learnChipdark : AppColors.learnChiplight,
                 AppColors.learnLabel,
               ),
+
               _section(
                 "Interested in",
                 user.interests,

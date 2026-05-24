@@ -106,7 +106,7 @@ class _MatchPageState extends ConsumerState<MatchPage> {
                 _btn(Icons.favorite, Colors.pink, () {
                   controller.swipe(CardSwiperDirection.right);
                 }, big: true),
-                _btn(Icons.star, Colors.purple, () {}),
+                // _btn(Icons.star, Colors.purple, () {}),
               ],
             ),
           ),

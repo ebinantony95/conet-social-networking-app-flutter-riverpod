@@ -86,7 +86,7 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ///  HEADER
+                ///  HEADER
                 // const Padding(
                 //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 //   child: Text(
@@ -97,94 +97,103 @@ class _FriendsPageState extends ConsumerState<FriendsPage> {
 
                 ///  LIST
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: sortedFriends.length,
-                    itemBuilder: (_, i) {
-                      final user = sortedFriends[i];
-                      final chat = chatMap[user.uid];
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await ref
+                          .read(friendsProvider.notifier)
+                          .loadFriends(currentUserId!);
 
-                      return Column(
-                        children: [
-                          ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-
-                            ///  PROFILE
-                            leading: CircleAvatar(
-                              radius: 28,
-                              backgroundImage: AssetImage(user.avatar),
-                            ),
-
-                            ///  NAME
-                            title: Text(
-                              user.name,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-
-                            /// LAST MESSAGE / FALLBACK
-                            subtitle: Text(
-                              chat?.lastMessage.isNotEmpty == true
-                                  ? chat!.lastMessage
-                                  : "Start a conversation",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-
-                            ///  TIME + DOT
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  formatTime(chat?.lastTimestamp),
-                                  style: const TextStyle(fontSize: 12),
-                                ),
-                                const SizedBox(height: 6),
-
-                                ///  UNREAD INDICATOR (basic)
-                                if (chat != null)
-                                  Container(
-                                    width: 8,
-                                    height: 8,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.green,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                              ],
-                            ),
-
-                            ///  OPEN CHAT
-                            onTap: () async {
-                              final chatDatasource = ref.read(
-                                chatDatasourceProvider,
-                              );
-
-                              final chatId = chatDatasource.getChatId(
-                                currentUserId!,
-                                user.uid,
-                              );
-
-                              await chatDatasource.createChat(
-                                currentUserId!,
-                                user.uid,
-                              );
-
-                              context.push(
-                                '/chat',
-                                extra: {
-                                  'chatId': chatId,
-                                  'currentUserId': currentUserId,
-                                },
-                              );
-                            },
-                          ),
-
-                          const SizedBox(height: 6),
-                        ],
-                      );
+                      ref.invalidate(userChatsProvider(currentUserId!));
                     },
+                    child: ListView.builder(
+                      itemCount: sortedFriends.length,
+                      itemBuilder: (_, i) {
+                        final user = sortedFriends[i];
+                        final chat = chatMap[user.uid];
+
+                        return Column(
+                          children: [
+                            ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+
+                              ///  PROFILE
+                              leading: CircleAvatar(
+                                radius: 28,
+                                backgroundImage: AssetImage(user.avatar),
+                              ),
+
+                              ///  NAME
+                              title: Text(
+                                user.name,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+
+                              /// LAST MESSAGE / FALLBACK
+                              subtitle: Text(
+                                chat?.lastMessage.isNotEmpty == true
+                                    ? chat!.lastMessage
+                                    : "Start a conversation",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+
+                              ///  TIME + DOT
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    formatTime(chat?.lastTimestamp),
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                  const SizedBox(height: 6),
+
+                                  ///  UNREAD INDICATOR (basic)
+                                  if (chat != null)
+                                    Container(
+                                      width: 8,
+                                      height: 8,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.green,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                ],
+                              ),
+
+                              ///  OPEN CHAT
+                              onTap: () async {
+                                final chatDatasource = ref.read(
+                                  chatDatasourceProvider,
+                                );
+
+                                final chatId = chatDatasource.getChatId(
+                                  currentUserId!,
+                                  user.uid,
+                                );
+
+                                await chatDatasource.createChat(
+                                  currentUserId!,
+                                  user.uid,
+                                );
+
+                                context.push(
+                                  '/chat',
+                                  extra: {
+                                    'chatId': chatId,
+                                    'currentUserId': currentUserId,
+                                  },
+                                );
+                              },
+                            ),
+
+                            const SizedBox(height: 6),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
