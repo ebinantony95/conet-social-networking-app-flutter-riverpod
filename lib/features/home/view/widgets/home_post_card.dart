@@ -12,7 +12,7 @@ class PostCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dark = AppHelpers.isDarkMode(context);
-    final date = post.createdAt?.toDate() ?? DateTime.now();
+    final date = post.createdAt.toDate();
 
     return Container(
       margin: const EdgeInsets.all(12),
